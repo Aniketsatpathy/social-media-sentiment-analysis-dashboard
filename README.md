@@ -16,10 +16,16 @@ This system features a **hybrid multi-model inference engine** allowing real-tim
 ## 📸 Executive Dashboard in Action (Manager View)
 
 > [!IMPORTANT]
-> **Executive View**: Below is the live running application capturing real-time brand sentiment, volume metrics, moving average trendlines, topic cloud clusters, and streamed social posts with AI confidence scores.
+> **Real-Time Live Application Screenshots**: Below are the actual dashboard views of the system running in real-time, showcasing multi-model selection (RoBERTa Transformer vs. TF-IDF + Logistic Regression), live post ingestion, interactive sentiment distribution, comparative brand analytics, and discussion topic word clouds.
 
-![Live Streamlit Dashboard Screenshot](docs/images/dashboard_actual.png)
-*Figure 1: Live Streamlit Application running on localhost (`http://localhost:8501`) displaying real-time metrics, brand breakdown, word clouds, and AI post predictions.*
+![Real-Time Dashboard Overview & Control Panel](docs/images/dashboard_overview.png)
+*Figure 1: Control Panel interface featuring model selection (RoBERTa), Total Comments Analyzed (33), Positive Sentiment % (42.4%), and Average Sentiment Score.*
+
+![Active Streaming & Brand Comparison](docs/images/dashboard_streaming.png)
+*Figure 2: Live Ingest Stream active with TF-IDF + Logistic Regression model, Sentiment Ratio Distribution donut chart, and Brand Net Sentiment Comparison.*
+
+![Sentiment Trends Over Time & Discussion Topic Word Cloud](docs/images/dashboard_wordcloud_trends.png)
+*Figure 3: Multi-brand Sentiment Trends Over Time line chart (Netflix, Google, Apple, Starbucks) paired with the Discussion Topic Word Cloud.*
 
 ---
 
