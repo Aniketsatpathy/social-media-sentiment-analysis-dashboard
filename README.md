@@ -1,122 +1,133 @@
-# 📊 Social Media Sentiment Analysis Dashboard
+# 📊 Real-Time Social Media Sentiment Analysis Dashboard
 
-An end-to-end Machine Learning pipeline and real-time interactive dashboard designed to ingest, clean, validate, and classify public sentiment from social media streams (simulating channels like Twitter, YouTube comments, and Reddit).
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.29-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.1-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
+![Hugging Face](https://img.shields.io/badge/Transformers-RoBERTa-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.3-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-3.0-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 
-This project features a **hybrid multi-model engine** allowing on-the-fly toggling between rule-based lexicons (NLTK VADER), custom-trained classical ML classifiers (TF-IDF + Logistic Regression), and deep-learning transformer architectures (Hugging Face RoBERTa).
+An end-to-end Machine Learning pipeline and real-time interactive dashboard designed to ingest, clean, validate, and classify public sentiment from social media streams (simulating platforms like Twitter/X, Reddit, and YouTube comments).
+
+This system features a **hybrid multi-model inference engine** allowing real-time toggling between rule-based lexicons (**NLTK VADER**), custom-trained classical ML classifiers (**TF-IDF + Logistic Regression**), and deep-learning transformer architectures (**Hugging Face RoBERTa**).
 
 ---
 
 ## 📸 Executive Dashboard in Action (Manager View)
 
-> [!NOTE]
-> Designed for non-technical stakeholders and executive decision-makers to track brand health, customer sentiment velocity, and topic trends in real time.
+> [!IMPORTANT]
+> **Executive View**: Below is the live running application capturing real-time brand sentiment, volume metrics, moving average trendlines, topic cloud clusters, and streamed social posts with AI confidence scores.
 
-![Executive Dashboard Overview](docs/images/dashboard_preview.png)
-*Figure 1: Executive Dark-Theme Overview showing real-time metrics, brand breakdown, word clouds, and AI post stream.*
-
-![Live Streamlit Application Action](docs/images/dashboard_live.png)
-*Figure 2: Live Streamlit Application running on localhost with real-time database feed.*
-
-### 🔑 Manager Guide: Understanding the Dashboard Metrics
-
-1. **Net Sentiment Score (NSS)**:
-   - **Formula**: `% Positive Posts - % Negative Posts`
-   - **Executive Takeaway**: A single high-level health metric. Positive values indicate strong customer satisfaction (+64% target).
-2. **Real-Time Moving Sentiment Trend**:
-   - Live visual line graph displaying sentiment fluctuations over time to spot sudden customer feedback spikes or crisis events.
-3. **Brand Comparative Breakdown**:
-   - Donut chart comparing public sentiment across monitored brands (Apple, Netflix, Tesla, Amazon).
-4. **Key Topic Word Cloud**:
-   - Instant visual cluster of high-frequency keywords (`iPhone`, `Battery`, `Support`, `Delivery`) driving customer sentiment.
-5. **Live Social Post Stream & AI Predictions**:
-   - Real-time tabular feed showing original social posts, user handles, platform, predicted sentiment tags (Positive / Negative / Neutral), and model confidence scores.
+![Live Streamlit Dashboard Screenshot](docs/images/dashboard_actual.png)
+*Figure 1: Live Streamlit Application running on localhost (`http://localhost:8501`) displaying real-time metrics, brand breakdown, word clouds, and AI post predictions.*
 
 ---
 
-## 🏗️ System Architecture
+### 🔑 Non-Technical Manager Guide: Understanding Key Business Metrics
+
+| Metric Component | Description | Strategic Executive Value |
+| :--- | :--- | :--- |
+| **Net Sentiment Score (NSS)** | Calculated as `(% Positive Posts - % Negative Posts)` | A single top-level KPI score indicating overall brand perception and customer sentiment health. |
+| **Real-Time Sentiment Velocity** | Moving average line chart updated dynamically as posts are ingested | Enables early detection of brand reputation crises or viral product feedback spikes. |
+| **Brand Comparison Breakdown** | Interactive donut chart profiling brands (Apple, Netflix, Tesla, Amazon) | Provides instant cross-brand competitive benchmarking and market share of voice. |
+| **Topic Word Cloud** | Dynamic visual cluster of recurring high-impact keywords | Highlights exact product attributes (`iPhone`, `Battery`, `Support`, `Service`) driving sentiment. |
+| **Live Social Stream Table** | Real-time post feed with predicted sentiment badges and confidence % | Allows managers to inspect specific customer comments and audit AI classification accuracy. |
+
+---
+
+## 🏗️ System Architecture & Data Flow
 
 ```mermaid
 graph TD
-    A[data_generator.py - Ingests Mock Feed] -->|Writes Raw Posts| B[(SQLite Database)]
-    C[dashboard.py - Streamlit UI] -->|Queries for Charts| B
-    D[sentiment_engine.py] -->|Inference Classification| B
-    E[preprocessor.py] -->|NLP text cleaning| D
-    B -->|Fetch Unprocessed| D
+    A[data_generator.py - Live Mock Feed Simulator] -->|Writes Raw Social Posts| B[(SQLite Database)]
+    C[sentiment_engine.py - Multi-Model Inference] -->|Fetches Unprocessed Posts| B
+    E[preprocessor.py - Regex NLP & Lemmatizer] -->|Cleans & Standardizes Text| C
+    C -->|Stores Predictions & Confidence| B
+    D[dashboard.py - Streamlit UI Dashboard] -->|Queries Aggregated Analytics| B
     
     style A fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#fff
     style B fill:#1e293b,stroke:#475569,stroke-width:2px,color:#fff
-    style C fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
-    style D fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#fff
+    style C fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#fff
+    style D fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
+    style E fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#fff
 ```
 
 ---
 
-## 🌟 Key Features
+## 🌟 Key System Features
 
-*   **Real-time Data Stream Simulator:** Simulates a live stream of user comments containing brand hashtags, user handles, likes, and follower demographics, written dynamically to a local database.
-*   **Production-Grade SQLite Storage:** Tracks ingest stages, runs index updates on keywords, and serves as a local data warehouse.
-*   **Three Sentiment Engines in One:**
-    *   *Lexicon VADER:* Fast heuristic baseline reading emojis and punctuation.
-    *   *TF-IDF + Logistic Regression:* Custom-trained model with full tokenization and lemmatization.
-    *   *HF RoBERTa:* State-of-the-art context-aware Transformer model.
-*   **Rich Interactive Streamlit Dashboard:** Visualizes Net Sentiment Scores (NSS), real-time moving average lines, comparative brand metrics, and dynamic word clouds.
-*   **Automated Quality Assurance:** Features automated data validation gates and a full unit testing suite powered by `pytest`.
+- **⚡ Real-Time Data Stream Simulator**: Simulates high-velocity social media posts complete with brand hashtags, user handles, platform metadata (Twitter/X, Reddit), engagement metrics, and timestamps.
+- **🗄️ Production-Grade Local Data Warehouse**: SQLite storage engine with indexed database schemas tracking raw ingestion, processing status, and sentiment inference results.
+- **🧠 Multi-Engine AI Sentiment Classification**:
+  - **NLTK VADER**: Fast heuristic lexicon handling emojis, capitalization, and punctuation intensity.
+  - **TF-IDF + Logistic Regression**: High-efficiency custom ML classifier trained on balanced Sentiment140 data.
+  - **Hugging Face RoBERTa**: Deep Transformer model capturing complex context, sarcasm, and subtle negation.
+- **📊 Rich Interactive Streamlit UI**: Dark-themed aesthetic interface built with custom CSS, Plotly graphs, and real-time metric counters.
+- **🛡️ Automated Data Quality & Testing**: Complete schema validation checks (`main.py --validate`) and unit testing suite (`pytest`).
 
 ---
 
 ## 📁 Repository Structure
 
 ```
-Social-Media-Sentiment-Analysis-Dashboard/
+social-media-sentiment-analysis-dashboard/
+├── app/
+│   └── dashboard.py              # Streamlit dashboard UI layout & state management
 ├── config/
-│   └── config.yaml               # System parameters & model controls
+│   └── config.yaml               # Application parameters, delays, & model settings
 ├── data/
 │   ├── raw_tweets.csv            # Balanced training subset (100k rows)
-│   └── database.sqlite           # SQLite DB binary (auto-created)
+│   └── database.sqlite           # SQLite DB data warehouse (auto-initialized)
+├── docs/
+│   ├── images/
+│   │   ├── dashboard_actual.png  # Live application screenshot preview
+│   │   ├── dashboard_live.png    # High-resolution UI preview
+│   │   └── dashboard_preview.png # Executive preview asset
+│   └── portfolio_guide.md        # Technical design & documentation
+├── models/
+│   ├── vectorizer.pkl            # Serialized TF-IDF vectorizer model
+│   └── classifier.pkl            # Serialized Logistic Regression model
 ├── notebooks/
 │   ├── 01_exploratory_analysis.ipynb # Dataset profiling & EDA
 │   └── 02_model_experiments.ipynb    # NLP vectorization & ML training
 ├── src/
-│   ├── database_manager.py       # SQL schemas & queries interface
-│   ├── data_validator.py         # CSV schema & distribution profiling
-│   ├── preprocessor.py           # Clean regex filters & NLTK lemmatizers
-│   ├── sentiment_engine.py       # Unified multi-model prediction engine
-│   ├── model_trainer.py          # Custom ML model training loop
-│   └── data_generator.py         # Threaded mock social post generator
-├── app/
-│   └── dashboard.py              # Streamlit dashboard layout
-├── models/
-│   ├── vectorizer.pkl            # Serialized TF-IDF vectorizer
-│   └── classifier.pkl            # Serialized Logistic Regression
+│   ├── database_manager.py       # SQL schemas & database interface
+│   ├── data_generator.py         # Threaded mock post stream generator
+│   ├── data_validator.py         # CSV schema & data quality validator
+│   ├── model_trainer.py          # TF-IDF + Logistic Regression training pipeline
+│   ├── preprocessor.py           # Text regex cleaning & NLTK lemmatization
+│   └── sentiment_engine.py       # Unified multi-model inference manager
 ├── tests/
-│   ├── test_preprocessor.py      # Preprocessor validation tests
-│   └── test_sentiment.py         # Engine prediction assert checks
-├── README.md                     # Project landing documentation
-├── requirements.txt              # Package dependencies list
-└── main.py                       # CLI manager entry point
+│   ├── test_preprocessor.py      # Unit tests for text cleaning regex
+│   └── test_sentiment.py         # Unit tests for sentiment inference engines
+├── .gitignore                    # Version control ignore definitions
+├── download_and_sample.py        # Automatic dataset setup script
+├── main.py                       # Command-line interface manager entrypoint
+├── README.md                     # Project documentation landing page
+└── requirements.txt              # Python package dependencies
 ```
 
 ---
 
-## 🚀 Installation & Local Setup
+## 🚀 Quickstart & Setup Guide
 
-### 1. Clone the repository and navigate inside
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/Aniketsatpathy/social-media-sentiment-analysis-dashboard.git
 cd social-media-sentiment-analysis-dashboard
 ```
 
-### 2. Create and Activate a Virtual Environment
-*   **Windows (PowerShell):**
-    ```powershell
-    python -m venv .venv
-    .venv\Scripts\Activate.ps1
-    ```
-*   **macOS / Linux:**
-    ```bash
-    python3 -m venv .venv
-    source .venv/bin/activate
-    ```
+### 2. Set Up Virtual Environment
+- **Windows (PowerShell):**
+  ```powershell
+  python -m venv .venv
+  .venv\Scripts\Activate.ps1
+  ```
+- **macOS / Linux:**
+  ```bash
+  python3 -m venv .venv
+  source .venv/bin/activate
+  ```
 
 ### 3. Install Dependencies
 ```bash
@@ -126,44 +137,51 @@ pip install -r requirements.txt
 
 ---
 
-## 📈 Running the Application
+## 📈 Running the Application Pipeline
 
-### Step 1: Download & Sample Training Dataset
-Execute the automatic dataset setup script to fetch the Sentiment140 corpus, sample a balanced subset of 100k rows, and output `data/raw_tweets.csv`:
+### Step 1: Download & Sample Dataset
+Fetches the Sentiment140 corpus and creates a balanced subset of 100k records:
 ```bash
 python download_and_sample.py
 ```
 
-### Step 2: Validate Data Quality & Schema
-Run the data validator script to profile missing values, label skew, and structural duplicates:
+### Step 2: Validate Data Schema & Quality Profiles
+Profiles missing values, duplicate rates, label distributions, and ASCII outlier rates:
 ```bash
 python main.py --validate
 ```
 
-### Step 3: Train Custom Machine Learning Classifier
-Train the TF-IDF vectorizer and Logistic Regression classifier and serialize model files to `models/`:
+### Step 3: Train Custom Machine Learning Model
+Trains the TF-IDF vectorizer and Logistic Regression classifier, serializing models to `models/`:
 ```bash
 python main.py --train
 ```
 
-### Step 4: Run Automated Unit Tests
-Verify text preprocessing, emoji retention, and model classification thresholds:
+### Step 4: Run Automated Unit Testing Suite
+Verifies text preprocessor functions and model prediction thresholds:
 ```bash
 pytest tests/
 ```
 
-### Step 5: Start the Dashboard
-Launch the web interface locally. Click the **Start Simulator** button in the sidebar to stream live posts:
+### Step 5: Launch the Interactive Dashboard
+Starts the Streamlit web application on local port `8501`:
 ```bash
 streamlit run app/dashboard.py
 ```
+Open **`http://localhost:8501`** in your browser. Click **Start Simulator** in the sidebar to stream live posts into the dashboard!
 
 ---
 
-## 📊 Model Evaluation Comparisons
+## 📊 AI Model Evaluation Benchmark
 
-| Model Architecture | Test Accuracy | Inference Latency | Best Suited For |
+| Model Architecture | Accuracy | Inference Latency | Primary Strength / Best Suited For |
 | :--- | :--- | :--- | :--- |
-| **NLTK VADER** (Lexicon) | ~65% | < 1 ms | High-velocity streams, emoji-heavy posts |
-| **TF-IDF + Logistic Reg** | **~78.5%** | **~2 ms** | Production CPU loads, high explainability |
-| **HF RoBERTa** (Transformer) | ~89.2% | ~120 ms | Sarcasm, double negatives, deep semantics |
+| **NLTK VADER** (Lexicon) | ~65.0% | **< 1 ms** | Ultra-high velocity streams, emoji & punctuation intensity |
+| **TF-IDF + Logistic Reg** | **~78.5%** | **~2 ms** | Production CPU workloads, high explainability & throughput |
+| **HF RoBERTa** (Transformer) | **~89.2%** | ~120 ms | Deep contextual nuance, sarcasm, double negatives |
+
+---
+
+## 🛡️ License & Author
+
+Developed by **[Aniket Satpathy](https://github.com/Aniketsatpathy)**. Released under the MIT License.
