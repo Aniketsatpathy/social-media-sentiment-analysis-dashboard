@@ -16,16 +16,34 @@ This system features a **hybrid multi-model inference engine** allowing real-tim
 ## 📸 Executive Dashboard in Action (Manager View)
 
 > [!IMPORTANT]
-> **Real-Time Live Application Screenshots**: Below are the actual dashboard views of the system running in real-time, showcasing multi-model selection (RoBERTa Transformer vs. TF-IDF + Logistic Regression), live post ingestion, interactive sentiment distribution, comparative brand analytics, and discussion topic word clouds.
+> **Real-Time Live Application Screenshots**: Below is the complete visual walkthrough of the system running in real-time. It showcases multi-model switching (VADER, TF-IDF + Logistic Regression, RoBERTa Transformer), high-volume stream ingestion, live social feed tables, model playpens, and downloadable executive audit reports.
 
-![Real-Time Dashboard Overview & Control Panel](docs/images/dashboard_overview.png)
-*Figure 1: Control Panel interface featuring model selection (RoBERTa), Total Comments Analyzed (33), Positive Sentiment % (42.4%), and Average Sentiment Score.*
+### 1. Real-Time Sentiment Analytics & Volume Monitoring
 
-![Active Streaming & Brand Comparison](docs/images/dashboard_streaming.png)
-*Figure 2: Live Ingest Stream active with TF-IDF + Logistic Regression model, Sentiment Ratio Distribution donut chart, and Brand Net Sentiment Comparison.*
+![High-Volume Sentiment Analytics](docs/images/dashboard_high_volume.png)
+*Figure 1: High-Volume Analytics View — 355 Comments Analyzed, 63.4% Positive Sentiment, 0.73 Average Sentiment Score using active TF-IDF + Logistic Regression engine.*
 
-![Sentiment Trends Over Time & Discussion Topic Word Cloud](docs/images/dashboard_wordcloud_trends.png)
-*Figure 3: Multi-brand Sentiment Trends Over Time line chart (Netflix, Google, Apple, Starbucks) paired with the Discussion Topic Word Cloud.*
+![RoBERTa Control Panel Overview](docs/images/dashboard_overview.png)
+*Figure 2: Control Panel Overview — Active RoBERTa Deep Learning Transformer model showing real-time Sentiment Ratio Distribution donut chart and initial stream status.*
+
+![Active Ingest Stream & Brand Comparison](docs/images/dashboard_streaming.png)
+*Figure 3: Active Stream State — Live post stream ingestion active, Sentiment Ratio Distribution (60.1% Positive), and Brand Net Sentiment Comparison bar chart.*
+
+### 2. Deep-Dive Visual Analytics, Trends & Live Social Stream
+
+![Sentiment Trends Over Time & Word Cloud](docs/images/dashboard_wordcloud_trends.png)
+*Figure 4: Sentiment Trends Over Time line chart tracking brands (Netflix, Google, Apple, Starbucks) alongside the Discussion Topic Word Cloud.*
+
+![Model Playpen & Live Social Feed Table](docs/images/dashboard_feed_table.png)
+*Figure 5: Model Playpen for custom sentence testing alongside the Live Social Media Feed Stream table showing Usernames, Brands, Post Content, Sentiment Badges, and Confidence Scores.*
+
+### 3. Executive Insights, Pain Point Audits & Model Switcher
+
+![Executive Key Strengths & Pain Points Audit](docs/images/dashboard_executive_insights.png)
+*Figure 6: Executive Key Strengths (Praise Points) vs. Key Weaknesses (Pain Points) audit detailing praise quotes, critical complaint tracking, and downloadable PDF/CSV audit reports.*
+
+![NLP Multi-Model Selector Dropdown](docs/images/dashboard_model_selection.png)
+*Figure 7: NLP Core Model Selector Dropdown allowing seamless real-time toggling between VADER Lexicon, TF-IDF + Logistic Regression, and RoBERTa Transformer.*
 
 ---
 
