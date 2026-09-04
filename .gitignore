@@ -1,0 +1,30 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Caching and IDE configurations
+.vscode/
+.idea/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Local Environment
+.venv/
+venv/
+ENV/
+
+# Data and database storage (SQLite binaries should not be in Git)
+data/*.sqlite
+data/*.db
+
+# Serialization Model Weights (Exceeds GitHub limits and generated locally)
+models/*.pkl
+models/*.bin
+models/*.h5
+
+# Local outputs/logs
+outputs/*.log
+outputs/*.png
+outputs/evaluation_report.txt

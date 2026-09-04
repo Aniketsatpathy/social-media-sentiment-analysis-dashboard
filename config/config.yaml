@@ -1,0 +1,16 @@
+active_model: roberta
+database:
+  db_path: data/database.sqlite
+model_paths:
+  classifier: models/classifier.pkl
+  vectorizer: models/vectorizer.pkl
+simulation:
+  brands:
+  - Apple
+  - Google
+  - Microsoft
+  - Netflix
+  - Disney
+  - Starbucks
+  - McDonald's
+  delay_seconds: 1.5
